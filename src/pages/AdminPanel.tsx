@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Upload, FolderPlus, Server, HardDrive, FileText, Trash2, Plus, CreditCard as Edit, Save, X, LogOut, BookOpen, Users, TestTube } from 'lucide-react';
+import { Upload, FolderPlus, Server, HardDrive, FileText, Trash2, Plus, CreditCard as Edit, Save, X, LogOut, BookOpen, Users, TestTube, UserCog } from 'lucide-react';
 import { useData, Note, PracticeTest, Practical, Subject } from '../context/DataContext';
 import { fileStorageService, FileUploadData } from '../services/fileStorage';
+import UserManagement from '../components/UserManagement';
 
 const AdminPanel: React.FC = () => {
   const {
@@ -28,7 +29,7 @@ const AdminPanel: React.FC = () => {
   } = useData();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState<'subjects' | 'notes' | 'practice-tests' | 'practicals'>('subjects');
+  const [activeTab, setActiveTab] = useState<'subjects' | 'notes' | 'practice-tests' | 'practicals' | 'users'>('subjects');
   const [isAddingSubject, setIsAddingSubject] = useState(false);
   const [editingSubject, setEditingSubject] = useState<string | null>(null);
   const [newSubject, setNewSubject] = useState<{ name: string; units: string[] }>({
@@ -439,6 +440,20 @@ const AdminPanel: React.FC = () => {
             <TestTube className="h-4 w-4" />
             <span>Practicals</span>
           </button>
+          <button
+            onClick={() => {
+              console.log('Switching to users tab');
+              setActiveTab('users');
+            }}
+            className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-bold transition-all duration-300 ${
+              activeTab === 'users'
+                ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white neon-glow enhanced-shadow'
+                : 'bg-high-contrast enhanced-text hover-scale'
+            }`}
+          >
+            <UserCog className="h-4 w-4" />
+            <span>SNCOP-AI Users</span>
+          </button>
         </div>
 
         {/* Subjects Tab */}
@@ -791,6 +806,11 @@ const AdminPanel: React.FC = () => {
               </div>
             </div>
           </div>
+        )}
+
+        {/* Users Tab */}
+        {activeTab === 'users' && (
+          <UserManagement />
         )}
       </div>
     </div>

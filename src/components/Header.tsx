@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon, BookOpen, Settings, MessageSquare } from 'lucide-react';
+import { Menu, X, Sun, Moon, BookOpen, Settings, MessageSquare, User } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { useData } from '../context/DataContext';
 import { useAuth } from '../context/AuthContext';
@@ -91,6 +91,17 @@ const Header: React.FC = () => {
                 )}
               </button>
 
+              {/* Profile Button (for logged in users) */}
+              {user && (
+                <Link
+                  to="/profile"
+                  className="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-teal-600 text-white text-sm font-medium hover-scale shadow-lg"
+                >
+                  <User className="h-4 w-4" />
+                  <span>Profile</span>
+                </Link>
+              )}
+
               {/* Admin Button */}
               <Link
                 to={isLoggedIn ? "/admin" : "/admin-login"}
@@ -135,6 +146,16 @@ const Header: React.FC = () => {
                     {item.name}
                   </Link>
                 ))}
+                {user && (
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center space-x-2 px-4 py-3 rounded-lg bg-gradient-to-r from-green-500 to-teal-600 text-white font-medium shadow-lg"
+                  >
+                    <User className="h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                )}
                 <Link
                   to={isLoggedIn ? "/admin" : "/admin-login"}
                   onClick={() => setIsMenuOpen(false)}

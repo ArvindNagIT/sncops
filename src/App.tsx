@@ -12,6 +12,7 @@ import AdminLogin from './components/AdminLogin';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AIChat from './pages/AIChat';
+import Profile from './pages/Profile';
 import { ThemeProvider } from './context/ThemeContext';
 import { DataProvider } from './context/DataContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -56,6 +57,14 @@ function AppRoutes() {
               element={
                 <ProtectedRoute>
                   <AIChat />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
                 </ProtectedRoute>
               }
             />
